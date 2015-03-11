@@ -1,0 +1,66 @@
+<%- include header %>	
+        <div class="hero-unit">
+	  <h1>欢迎来到 Microblog</h1>
+	  <p>Microblog 是一个基于node.js的微博系统,使用了bootstrap,mongodb,jquery,ejs,express等开源框架</p>
+	  <p>
+	    <a class="btn btn-primary btn-large" href="/login">登陆</a>
+	    <a class="btn btn-large" href="/reg">立即注册</a>
+	  </p>
+	</div>
+
+	<% if(!user){ %>
+
+	<div class="row"> 
+	  <div class="span4">
+	    <h2>michael 说</h2>
+	     <p>东风破早梅
+	     <p>向暖一枝开
+         <p>冰雪无人见
+         <p>春从天上来
+     </div>
+	  <div class="span4">
+	    <h2>BYVoid 說</h2>
+	     <p>
+	     Open Chinese Convert（OpenCC）是一個開源的中文簡繁轉換項目，
+	     致力於製作高質量的基於統計預料的簡繁轉換詞庫。
+	     還提供函數庫(libopencc)、命令行簡繁轉換工具、人工校對工具、詞典生成程序、
+	     在線轉換服務及圖形用戶界面。</p>
+	  </div>
+	  <div class="span4">
+	    <h2>佛振 說</h2>
+	    <p>中州韻輸入法引擎 / Rime Input Method Engine 取意歷史上通行的中州韻，
+	    願寫就一部彙集音韻學智慧的輸入法經典之作。
+	    項目網站設在 http://code.google.com/p/rimeime/
+	    創造應用價值是一方面，更要堅持對好技術的追求，希望能寫出靈動而易於擴展的代碼，
+	    使其成為一款個性十足的開源輸入法。</p>
+	  </div>
+	</div>
+
+	<% }else{ %>
+
+	<% if(user){ %>
+	  <form method="post" action="/post" class="well form-inline center" style="text-align: center;">
+	    <input type="text" class="span8" name="post">
+	    <button type="submit" class="btn btn-success"><i class="icon-comment icon-white"></i> 发言</button>
+	  </form>
+	<% } %>
+
+	<% posts.forEach(function(post, index) { 
+	  if (index % 3 == 0) { %>
+	    <div class="row">
+	<% } %>
+	  <div class="span4">
+	    <h2><a href="/u/<%= post.user %>"><%= post.user %></a> 说</h2>
+	    <p><small><%= post.time %></small></p>
+	    <p><%= post.post %></p>
+	  </div>
+	<% if (index % 3 == 2) { %>
+	    </div><!-- end row -->
+	<% } %>
+	<% }) %>
+	<% if (posts.length % 3 != 0) { %>
+	  </div><!-- end row -->
+	<% } %>
+
+	<% } %>
+<%- include footer %>
